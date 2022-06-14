@@ -16,7 +16,7 @@ Build_Test:
             paths:
                 - "builds/**"
                 
- Run_Test:
+Run_Test:
     name: Run DrawCallPerf Performance Test
     variables:
         UNITY_BRANCH: trunk
