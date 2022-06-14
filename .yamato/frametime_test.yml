@@ -2,8 +2,8 @@ name: Test performance on Windows DrawCallPerf
 variables: 
     UNITY_BRANCH: trunk
 agent:
-    type: Unity::VM
-    image: sdet/gamecode_win10:stable
+    type: Unity::VM::GPU
+    image: sdet/gamecode_win10:v2.0.0-1044219
     flavor: b1.medium
 commands:
     - pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
