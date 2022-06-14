@@ -1,12 +1,12 @@
 name: Test performance on Windows DrawCallPerf
-    variables: 
-        UNITY_BRANCH: trunk
-    agent:
-        type: Unity::VM::GPU
-        image: desktop/editor-win10:v3.0-1090353
-        flavor: b1.medium
-    commands:
-        - pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
-        - unity-downloader-cli -u %UNITY_BRANCH% -c editor -p DownloadedEditor --wait --fast
-        - curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr.bat --output utr.bat
-        - ./utr --editor-location=DownloadedEditor --testproject=. --suite=playmode --platform=StandaloneWindows64 --report-performance-data
+variables: 
+    UNITY_BRANCH: trunk
+agent:
+    type: Unity::VM::GPU
+    image: desktop/editor-win10:v3.0-1090353
+    flavor: b1.medium
+commands:
+    - pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+    - unity-downloader-cli -u %UNITY_BRANCH% -c editor -p DownloadedEditor --wait --fast
+    - curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr.bat --output utr.bat
+    - ./utr --editor-location=DownloadedEditor --testproject=. --suite=playmode --platform=StandaloneWindows64 --report-performance-data
