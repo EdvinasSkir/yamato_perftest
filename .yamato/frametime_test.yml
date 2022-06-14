@@ -1,12 +1,32 @@
-name: Test performance on Windows DrawCallPerf
-variables: 
-    UNITY_BRANCH: trunk
-agent:
-    type: Unity::VM::GPU
-    image: sdet/gamecode_win10:v2.0.0-1044219
-    flavor: b1.medium
-commands:
-    - pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
-    - unity-downloader-cli -u %UNITY_BRANCH% -c editor -p DownloadedEditor --wait --fast
-    - curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr.bat --output utr.bat
-    - ./utr --editor-location=DownloadedEditor --testproject=. --suite=playmode --platform=StandaloneWindows64 --report-performance-data
+Build_Test:
+    name: Build DrawCallPerf Performance Test
+    variables:
+        UNITY_BRANCH: trunk
+    agent:
+        type: Unity::VM
+        image: desktop/editor-win10:v3.0-1090353
+        flavor: b1.small
+    commands:
+        - pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
+        - unity-downloader-cli -u %UNITY_BRANCH% -c editor -p EditorLocation --fast
+        - curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr.bat --output utr.bat
+        - ./utr --editor-location=EditorLocation --testproject=. --suite=playmode --platform=StandaloneWindows64 --player-save-path=builds --build-only
+    artifacts:
+        players:
+            paths:
+                - "builds/**"
+                
+ Run_Test:
+    name: Run DrawCallPerf Performance Test
+    variables:
+        UNITY_BRANCH: trunk
+    agent:
+        type: Unity::VM::GPU
+        image: desktop/editor-win10:v3.0-1090353
+        flavor: b1.large
+    dependencies:
+        - path: .yamato/frametime_test.yml#Build_Test
+            rerun: always
+    commands:
+        - curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr.bat --output utr.bat
+        - ./utr --player-load-path=builds --suite=playmode --platform=StandaloneWindows64 --report-performance-data
