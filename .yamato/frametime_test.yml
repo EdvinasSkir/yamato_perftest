@@ -4,7 +4,7 @@ Build_Test:
         UNITY_BRANCH: trunk
     agent:
         type: Unity::VM
-        image: desktop/editor-win10:v3.0-1090353
+        image: sdet/gamecode_win10:v2.0.0-1044219
         flavor: b1.small
     commands:
         - pip install unity-downloader-cli --index-url https://artifactory.prd.it.unity3d.com/artifactory/api/pypi/pypi/simple --upgrade
@@ -22,7 +22,7 @@ Run_Test:
         UNITY_BRANCH: trunk
     agent:
         type: Unity::VM::GPU
-        image: desktop/editor-win10:v3.0-1090353
+        image: sdet/gamecode_win10:v2.0.0-1044219
         flavor: b1.large
     dependencies:
         - path: .yamato/frametime_test.yml#Build_Test
