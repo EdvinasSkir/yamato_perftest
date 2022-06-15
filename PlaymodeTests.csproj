@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{97513AB6-8918-BEF5-7269-0D4ACDA6E864}</ProjectGuid>
+    <ProjectGuid>{2A9B7702-15E4-2037-8D14-790257B20DDF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PlaymodeTests</AssemblyName>

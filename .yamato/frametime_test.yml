@@ -29,4 +29,4 @@ Run_Test:
           rerun: always
     commands:
         - curl -s https://artifactory.prd.it.unity3d.com/artifactory/unity-tools-local/utr-standalone/utr.bat --output utr.bat
-        - ./utr --player-load-path=builds --suite=playmode --platform=StandaloneWindows64 --report-performance-data
+        - ./utr --player-load-path=builds --suite=playmode --platform=StandaloneWindows64 --player-connection-ip=auto --report-performance-data
